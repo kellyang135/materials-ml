@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
+import matplotlib.pyplot as plt
 
 # load the small dataset
 df = pd.read_csv("data/bandgaps_small.csv")
@@ -106,3 +107,26 @@ mae = mean_absolute_error(y_test, y_pred)
 print("Test set true bandgaps:", list(y_test.values))
 print("Test set predicted bandgaps:", list(y_pred))
 print(f"Mean absolute error on test set: {mae:.3f} eV")
+
+
+# parity plot: predicted vs. true bandgap
+plt.figure(figsize=(4, 4))
+plt.scatter(y_test, y_pred, color="blue", s=40, alpha=0.7, label="materials")
+
+# diagonal line (perfect prediction)
+min_val = min(min(y_test), min(y_pred))
+max_val = max(max(y_test), max(y_pred))
+plt.plot([min_val, max_val], [min_val, max_val], "r--", label="ideal")
+
+plt.xlabel("True bandgap (eV)")
+plt.ylabel("Predicted bandgap (eV)")
+plt.title("Parity plot (small dataset)")
+plt.legend()
+plt.tight_layout()
+
+
+import os
+
+os.makedirs("figures", exist_ok=True)
+plt.savefig("figures/parity_small.png", dpi=150)
+plt.show()
