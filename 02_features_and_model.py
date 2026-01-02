@@ -3,10 +3,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
 
-# 1. Load the small dataset
+# load the small dataset
 df = pd.read_csv("data/bandgaps_small.csv")
 
-# 2. Very small periodic table for the elements we use
+# make a very small periodic table for the elements we use
 #   Values: atomic_number, Pauling electronegativity (approx)
 ELEMENTS = {
     "Si": {"Z": 14, "EN": 1.90},
@@ -23,8 +23,8 @@ ELEMENTS = {
     "Zn": {"Z": 30, "EN": 1.65},
 }
 
-# 3. Manual composition lookup for our 10 formulas
-#    For each formula, list (element, count) pairs
+# manual composition lookup for our 10 formulas
+#    for each formula, list (element, count) pairs
 FORMULAS = {
     "Si":   [("Si", 1)],
     "Ge":   [("Ge", 1)],
